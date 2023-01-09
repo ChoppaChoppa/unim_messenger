@@ -15,6 +15,10 @@ type User struct {
 	UserRole Role
 }
 
+type UserData struct {
+	Students []Student
+}
+
 func (u *User) String() string {
 	return fmt.Sprintf("login: %s\npassword: %s\nrole: %v\n", u.Login, u.Password, u.UserRole)
 }

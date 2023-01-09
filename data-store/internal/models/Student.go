@@ -9,6 +9,7 @@ type Student struct {
 	Group     string `json:"group"`
 	Age       int    `json:"age"`
 	Course    int    `json:"course"`
+	Msgs      []Msg  `json:"msgs"`
 }
 
 func (s *Student) String() string {
