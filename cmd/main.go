@@ -2,6 +2,7 @@ package main
 
 import (
 	"Messenger/internal/config"
+	"Messenger/internal/service"
 	"Messenger/internal/transport/http"
 	"Messenger/internal/transport/http/handler"
 	"context"
@@ -25,9 +26,11 @@ func main() {
 		logger.Fatal().Err(err).Msg("failed to parse config")
 	}
 
-	handlers := handler.New(logger)
+	svc := service.New(logger)
 
-	server := http.New(cfg.Server.Host).WithHealthHandler(handlers)
+	handlers := handler.New(logger, svc)
+
+	server := http.New(cfg.Server.Host).WithHealthHandler(handlers).WithWsHandler(handlers)
 	go func() {
 		if err = server.Run(); err != nil {
 			logger.Fatal().Err(err).Msg("failed to start server")
